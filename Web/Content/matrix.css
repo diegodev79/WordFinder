@@ -1,0 +1,10 @@
+﻿.matrix-input {
+    width: 1.5em; /* Set a fixed width to limit the size of the input field */
+    height: 1.5em; /* Set a fixed height to maintain a square shape */
+    text-align: center; /* Center-align the text within the input field */
+    font-size: 12pt; /* Set the font size to 12 points */
+    border: 1px solid #ccc; /* Add a border for separation */
+    outline: none; /* Remove the default focus outline */
+    padding: 0; /* Remove padding to keep the size compact */
+    margin: 0; /* Remove margin to avoid extra space */
+}

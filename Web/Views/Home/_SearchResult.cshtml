@@ -1,0 +1,18 @@
+﻿@model List<(string, bool)>
+
+<div id="searchResults">
+    @foreach (var result in Model)
+    {
+        <p>
+            @result.Item1:
+            @if (result.Item2)
+            {
+                <i class="fas fa-check text-success"></i> 
+            }
+            else
+            {
+                <i class="fas fa-times text-danger"></i> 
+            }
+        </p>
+    }
+</div>

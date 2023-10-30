@@ -1,0 +1,65 @@
+﻿<link href="~/Content/matrix.css" rel="stylesheet" />
+<!-- ko with: home -->
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="aspnetTitle">C# .NET excercise</h1>
+        <p class="lead">Word Finde sample. Given a matrix find all words (horizontal left to right and vertical top to bottom)</p>
+    </section>
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="matrixSection">
+            <h2 id="gettingStartedTitle">Input Matrix</h2>
+            <div class="matrix mx-auto">
+                <table>
+                    <tbody>
+                        @foreach (var row in ViewBag.Matrix)
+                        {
+                            <tr>
+                                @foreach (var cell in row)
+                                {
+                                    <td><input type="text" class="matrix-input" maxlength="1" value="@cell" /></td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section class="col-md-4" aria-labelledby="inputSection">
+            <h2 id="gettingStartedTitle">Words to search (please separate by ,):</h2>
+            <textarea id="wordList" class="form-control" rows="5"></textarea>            
+        </section>
+        <section class="col-md-4">
+            <button id="searchButton" class="btn btn-primary" onclick="startSearch()">Search</button>
+            <div id="warningMessage" class="alert alert-warning" style="display: none;"></div>
+            <div id="searchResultsContainer"></div>
+        </section>
+    </div>
+</main>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function startSearch() {        
+        var wordList = $.trim($("#wordList").val()).replace(/\s/g, '');
+        if (wordList == "") {
+            $("#warningMessage").text("No words found. Please one or more words separated by coma.");
+            $("#warningMessage").show();
+        }
+        else if (/[^A-Za-z,]/.test(wordList))
+        {
+            $("#warningMessage").text("Invalid characters detected. Please use letters and commas only.");
+            $("#warningMessage").show();
+        }
+        else
+        {
+            $("#warningMessage").text("");
+            $("#warningMessage").hide();
+
+
+            $.post("/Home/StartSearch", { words: wordList }, function (data) {
+                //console.log("Result: " + data);
+                $("#searchResultsContainer").html(data);
+            });
+        }
+       
+    }
+</script>
+<!-- /ko -->
